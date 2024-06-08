@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'org.krechko'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    mainClass = 'org.krechko.processService.Main'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-parameters"
+}
+
+base {
+    archivesName.set("processService")
+}
+
+ext {
+    mp3agicVersion = '0.9.1'
+    springKafkaVersion = '3.2.0'
+    springBootVersion = '3.2.4'
+    lombokVersion = '1.18.30'
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation group: 'org.apache.tika', name: 'tika-core', version: '2.9.2'
+
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: springKafkaVersion
+
+    implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.734'
+
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+}
+
+test {
+    useJUnitPlatform()
+}

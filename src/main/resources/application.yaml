@@ -1,0 +1,17 @@
+server:
+  port: 9090
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: kafka:9092
+      group-id: process-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+    listener:
+      missing-topics-fatal: false
+     #ack-mode: manual
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
